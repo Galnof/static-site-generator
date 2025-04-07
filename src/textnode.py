@@ -1,15 +1,13 @@
 from enum import Enum
 
-# TextType enum defines the different types of inline text
-# that our Markdown parser will support. Each type represents
-# a different kind of formatting or element.
+# Defines the different types of text formatting our Markdown parser will support.
 class TextType(Enum):
-    TEXT = "text"
-    BOLD = "bold"
-    ITALIC = "italic"
-    CODE = "code"
-    LINK = "link"
-    IMAGE = "image"
+    TEXT = "text"      # Plain text
+    BOLD = "bold"      # **Bold text**
+    ITALIC = "italic"  # _Italic text_
+    CODE = "code"      # `Code text`
+    LINK = "link"      # [Link text](url)
+    IMAGE = "image"    # ![Image alt text](url)
 
 
 # TextNode class serves as an intermediate representation of text
@@ -22,7 +20,6 @@ class TextNode:
         self.url = url
     
     # Equality method to compare TextNodes.
-    # Returns True if all properties match between two TextNodes.
     def __eq__(self, other):
         return (
             self.text_type == other.text_type
@@ -30,7 +27,6 @@ class TextNode:
             and self.url == other.url
         )
     
-    # String representation method for debugging and display.
     # Shows the TextNode's properties in a readable format.
     def __repr__(self):
         return f"TextNode(text: {self.text}, text_type: {self.text_type.value}, url: {self.url})"
