@@ -1,23 +1,41 @@
-# Represents an HTML element in a document tree structure.
-# Can represent block-level or inline elements with optional attributes.
 class HTMLNode:
+    """
+    Represents an HTML element in a document tree structure.
+    Can represent block-level or inline elements with optional attributes.
+    """
     def __init__(self, tag=None, value=None, children=None, props=None):
-        # The HTML tag name (e.g., "p", "a", "h1").
+        """
+        Initialize an HTML node with optional parameters.
+        
+        Args:
+            tag (str, optional): String representing the HTML tag name (e.g., "p", "a", "h1")
+            value (str, optional): String content inside the HTML element
+            children (list, optional): List of child HTMLNode objects that are nested within this element
+            props (dict, optional): Dictionary of HTML attributes as key-value pairs (e.g., {"href": "`https://example.com`"})
+        """
         self.tag = tag
-        # The text content of the HTML element.
         self.value = value
-        # List of child HTMLNode objects.
         self.children = children
-        # Dictionary of HTML attributes (e.g., {"href": "https://example.com"}).
         self.props = props
-    
-    # Placeholder HTML conversion method to be implemented by child classes.
+
     def to_html(self):
+        """
+        Converts the node to HTML string representation.
+        This is a placeholder that child classes will override.
+        
+        Raises:
+            NotImplementedError: This base method must be implemented by subclasses
+        """
         raise NotImplementedError("to_html method not implemented")
-    
-    # Converts the props dictionary to an HTML attribute 
-    # string with a space before each attribute.
+
     def props_to_html(self):
+        """
+        Converts the node's properties (HTML attributes) to a string.
+        
+        Returns:
+            String with HTML attributes formatted as 'key="value"' with leading spaces
+            Empty string if no properties exist
+        """
         if self.props is None:
             return ""
 
@@ -26,6 +44,8 @@ class HTMLNode:
             props_html = props_html + f' {prop_key}="{self.props[prop_key]}"'
         return props_html
 
-    # Shows the HTMLNode's properties in a readable format.
     def __repr__(self):
+        """
+        Prints a string representation of the HTMLNode's properties in a readable format for debugging and logging.
+        """
         return f"HTMLNode(tag: {self.tag}, value: {self.value}, children: {self.children}, props: {self.props})"
