@@ -13,17 +13,17 @@ class TextType(Enum):
 
 class TextNode:
     """
-    TextNode class serves as an intermediate representation 
+    `TextNode` class serves as an intermediate representation 
     of text between Markdown parsing and HTML generation.
     """
     def __init__(self, text, text_type, url=None):
         """
-        Create a new TextNode representing a segment of text with specific formatting.
+        Create a new `TextNode` representing a segment of text with specific formatting.
     
         Args:
-            text (str): The text content of the node
-            text_type (TextType): The formatting type from the TextType enum
-            url (str, optional): The URL for link or image nodes. Defaults to None.
+            `text` (str): The text content of the node
+            `text_type` (`TextType`): The formatting type from the `TextType` enum
+            `url` (str, optional): The URL for link or image nodes. Defaults to `None`.
         """
         self.text = text
         self.text_type = text_type
@@ -31,10 +31,10 @@ class TextNode:
 
     def __eq__(self, other):
         """
-        Equality method to compare all properties of two TextNodes.
+        Equality method to compare all properties of two `TextNode`s.
 
         Args:
-            other (TextNode): The TextNode you are comparing.
+            `other` (`TextNode`): The `TextNode` you are comparing.
         """
         return (
             self.text_type == other.text_type
@@ -44,6 +44,7 @@ class TextNode:
 
     def __repr__(self):
         """
-        Prints a string representation of the TextNode's properties in a readable format for debugging and logging.
+        Prints a string representation of the `TextNode`'s properties 
+        in a readable format for debugging and logging.
         """
         return f"TextNode(text: {self.text}, text_type: {self.text_type.value}, url: {self.url})"
