@@ -2,7 +2,11 @@ from enum import Enum
 
 class TextType(Enum):
     """
-    Defines the different types of text formatting our Markdown parser will support.
+    Enum that defines the different types of inline text 
+    formatting our Markdown parser will support.
+    
+    `TextType`s supported:
+    `TEXT` `BOLD` `ITALIC` `CODE` `LINK` `IMAGE`
     """
     TEXT = "text"      # Plain text
     BOLD = "bold"      # **Bold text**
@@ -35,6 +39,9 @@ class TextNode:
 
         Args:
             `other` (`TextNode`): The `TextNode` you are comparing.
+        
+        Returns:
+            `bool`: `True` if all properties are equal, `False` otherwise.
         """
         return (
             self.text_type == other.text_type
@@ -46,5 +53,8 @@ class TextNode:
         """
         Prints a string representation of the `TextNode`'s properties 
         in a readable format for debugging and logging.
+
+        Returns:
+            str: String representation in format: TextNode(text, text_type, url)
         """
         return f"TextNode(text: {self.text}, text_type: {self.text_type.value}, url: {self.url})"

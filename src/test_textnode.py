@@ -5,7 +5,8 @@ class TestTextNode(unittest.TestCase):
     """
     Test suite for the `TextNode` class.
     
-    Verifies that two nodes with identical properties are considered equal by the `__eq__` method.
+    These tests verify that two nodes with identical properties 
+    are considered equal by the `__eq__` method.
     """
     def test_eq_true(self):
         """

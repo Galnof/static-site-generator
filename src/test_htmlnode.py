@@ -21,12 +21,11 @@ class TestHTMLNode(unittest.TestCase):
         Since dictionary order isn't guaranteed, check against both possible outputs.
         """
         node = HTMLNode(props={"href": "https://www.google.com", "target": "_blank"})
-        result = node.props_to_html()
         possible_expected_results = [
             ' href="https://www.google.com" target="_blank"',
             ' target="_blank" href="https://www.google.com"'
         ]
-        self.assertIn(result, possible_expected_results)
+        self.assertIn(node.props_to_html(), possible_expected_results)
     
     def test_props_to_html_with_no_props(self):
         """
