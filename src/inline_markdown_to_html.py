@@ -198,12 +198,12 @@ def split_nodes_by_markdown(old_nodes, extract_function, text_type, pattern_form
 
 def extract_markdown_images(text):
     """
-    Extracts markdown image syntax from text.
+    Extracts markdown image syntax from `text`.
     
     Pattern matches `![alt text](url)` format and returns the alt text and URL.
     
     Args:
-        `text` (str): The markdown text to search through
+        `text` (str): The markdown text to search through.
         
     Returns:
         list: A list of tuples, each containing. (alt_text, url)
@@ -216,13 +216,13 @@ def extract_markdown_images(text):
 
 def extract_markdown_links(text):
     """
-    Extracts markdown link syntax from text.
+    Extracts markdown link syntax from `text`.
     
     Pattern matches `[anchor text](url)` format and returns the anchor text and URL.
     Uses negative lookbehind `(?<!!)` to ensure it doesn't match image tags.
     
     Args:
-        `text` (str): The markdown text to search through
+        `text` (str): The markdown text to search through.
         
     Returns:
         list: A list of tuples, each containing. (anchor_text, url)

@@ -9,7 +9,6 @@ from inline_markdown_to_html import (
     extract_markdown_links
 )
 
-
 class TestTextToTextNode(unittest.TestCase):
     """
     Test suite for the `text_to_textnodes` function.

@@ -29,7 +29,7 @@ class HTMLNode:
         This is a placeholder that child classes will override.
         
         Raises:
-            NotImplementedError: This base method must be implemented by subclasses.
+            `NotImplementedError`: This base method must be implemented by subclasses.
         """
         raise NotImplementedError("to_html method not implemented")
 
@@ -38,7 +38,7 @@ class HTMLNode:
         Converts the node's properties (HTML attributes) to a string.
         
         Returns:
-            String with HTML attributes formatted as 'key="value"' with leading spaces.
+            String with HTML attributes formatted as `key="value"` with leading spaces.
             Empty string if no properties exist.
         """
         if self.props is None:
@@ -90,6 +90,7 @@ class ParentNode(HTMLNode):
         Returns:
             str: HTML representation of this node and its `children`.
         """
+        # Raise error if tag is None or children is None.
         if self.tag is None:
             raise ValueError("invalid HTML: no tag")
         if self.children is None:
@@ -148,6 +149,8 @@ class LeafNode(HTMLNode):
         Raises:
             `ValueError`: If the node has no `value`
         """
+
+        # Raise error if the node has no value.
         if self.value is None:
             raise ValueError("invalid HTML: no value")
         
@@ -189,6 +192,7 @@ def text_node_to_html_node(text_node):
         TextType.LINK: {"tag": "a"},
         TextType.IMAGE: {"tag": "img"}
     }
+
     # Check if TextType is valid and exists in mapping, 
     # then generates LeafNode arguments as needed for each TextType.
     if text_node.text_type in text_type_map:

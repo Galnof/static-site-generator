@@ -22,7 +22,7 @@ class TextNode:
     """
     def __init__(self, text, text_type, url=None):
         """
-        Create a new `TextNode` representing a segment of text with specific formatting.
+        Create a new `TextNode` representing a segment of `text` with specific formatting.
     
         Args:
             `text` (str): The text content of the node
@@ -53,8 +53,5 @@ class TextNode:
         """
         Prints a string representation of the `TextNode`'s properties 
         in a readable format for debugging and logging.
-
-        Returns:
-            str: String representation in format: TextNode(text, text_type, url)
         """
         return f"TextNode(text: {self.text}, text_type: {self.text_type.value}, url: {self.url})"

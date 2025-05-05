@@ -6,7 +6,6 @@ from block_markdown_to_html import (
     BlockType
 )
 
-
 class TestMarkdownToHTMLNode(unittest.TestCase):
     """
     Test suite for the `markdown_to_html_node` function.
