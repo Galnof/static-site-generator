@@ -1,7 +1,7 @@
 import os
 from block_markdown_to_html import markdown_to_html_node
 
-def generate_pages_recursive(content_dir_path, template_path, dest_dir_path):
+def generate_pages_recursive(content_dir_path, template_path, dest_dir_path, basepath):
     """
     Recursively generates HTML pages from markdown files.
     
@@ -9,12 +9,13 @@ def generate_pages_recursive(content_dir_path, template_path, dest_dir_path):
         `content_dir_path` (str): Path to the directory containing markdown content.
         `template_path` (str): Path to the HTML template file.
         `dest_dir_path` (str): Path to the destination directory for generated HTML files.
+        `basepath` (str): Base URL path for the site. (e.g., '/' for local, '/repo-name/' for GitHub Pages)
         
     Raises:
         `ValueError`: If the content directory path is invalid.
     
     Side effects:
-        - Uses `generate_page` to generate directories and file for `dest_html_path`.
+        - Uses `generate_page` to generate directories and files for `dest_html_path`.
     """
     # Validate content directory exists. 
     if not os.path.exists(content_dir_path):
@@ -32,20 +33,31 @@ def generate_pages_recursive(content_dir_path, template_path, dest_dir_path):
             if content_path.endswith(".md"):
                 # Change extension from .md to .html.
                 dest_html_path = dest_path[:-3] + ".html"
-                # Generate the HTML page.
-                generate_page(content_path, template_path, dest_html_path)
+                # Generate the HTML page from markdown file using the template.
+                # Apply the correct base path for link.
+                generate_page(content_path, template_path, dest_html_path, basepath)
         elif os.path.isdir(content_path):
-            # If it's a directory, process it recursively.
-            generate_pages_recursive(content_path, template_path, dest_path)
+            # If it's a directory, create the corresponding directory in the destination
+            # and recursively process its contents.
+            generate_pages_recursive(content_path, template_path, dest_path, basepath)
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath):
     """
     Generate an HTML page from a markdown file using a template.
+
+    This function:
+    1. Reads markdown content and HTML template
+    2. Extracts the title from the markdown
+    3. Converts markdown content to HTML
+    4. Replaces template placeholders with actual content
+    5. Adjusts URL paths according to the base path
+    6. Writes the final HTML to the destination file
     
     Args:
         `from_path` (str): Path to the markdown file to convert.
         `template_path` (str): Path to the HTML template file.
         `dest_path` (str): Path where the generated HTML file will be saved.
+        `basepath` (str): Base URL path for the site (e.g., '/' for local, '/repo-name/' for GitHub Pages)
     
     Side effects:
         - Creates directories in `dest_path` if they don't exist.
@@ -72,6 +84,10 @@ def generate_page(from_path, template_path, dest_path):
     # Replace placeholders in the template with content and title.
     new_template = template_doc.replace("{{ Title }}", title).replace("{{ Content }}", content)
     
+    # Fix relative URLs to work with the configured base path.
+    # This is crucial for GitHub Pages where the site is in a subdirectory.
+    new_template = new_template.replace('href="/', f'href="{basepath}').replace('src="/', f'src="{basepath}')
+
     # Ensure the destination directory exists, then make directories as needed.
     dest_dir_name = os.path.dirname(dest_path)
     if dest_dir_name != "":
